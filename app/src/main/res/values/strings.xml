@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ProductMagazine</string>
+    <string name="hintProductNameET">Наименование</string>
+    <string name="hintProductPriceET">Цена</string>
+    <string name="textSaveBTN">Сохранить</string>
+    <string name="hintProductNameTV">Наименование</string>
+    <string name="hintProductPriceTV">Цена</string>
+    <string name="titleMenuExit">Выход</string>
+    <string name="textShopNameTV">Магазин продуктов Шестерочка</string>
+    <string name="textStartBTN">Старт</string>
+</resources>
