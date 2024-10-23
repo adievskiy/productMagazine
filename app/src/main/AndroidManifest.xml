@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ProductMagazine"
         tools:targetApi="31">
         <activity
+            android:name=".DetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Cart"
             android:exported="false" />
         <activity

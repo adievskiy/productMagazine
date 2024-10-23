@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -19,17 +20,22 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.IOException
 
-class Cart : AppCompatActivity() {
+class Cart : AppCompatActivity(), Updatable, Removable {
 
     private val GALLERY_REQUEST = 302
-    private var bitmap: Bitmap? = null
+    private var photoUri: Uri? = null
     private val products: MutableList<Product> = mutableListOf()
+    private var listAdapter: ListAdapter? = null
+    private var item: Int? = null
+    private var product: Product? = null
+    private var check = true
 
     private lateinit var toolbarCart: Toolbar
     private lateinit var editImageIV: ImageView
     private lateinit var listViewLV: ListView
     private lateinit var productNameET: EditText
     private lateinit var productPriceET: EditText
+    private lateinit var productDescriptionET: EditText
     private lateinit var saveBTN: Button
 
     @SuppressLint("MissingInflatedId")
@@ -51,6 +57,7 @@ class Cart : AppCompatActivity() {
         listViewLV = findViewById(R.id.listViewLV)
         productNameET = findViewById(R.id.productNameET)
         productPriceET = findViewById(R.id.productPriceET)
+        productDescriptionET = findViewById(R.id.productDescriptionET)
         saveBTN = findViewById(R.id.saveBTN)
 
         editImageIV.setOnClickListener {
@@ -62,16 +69,29 @@ class Cart : AppCompatActivity() {
         saveBTN.setOnClickListener {
             val productName = productNameET.text.toString()
             val productPrice = productPriceET.text.toString()
-            val personImage = bitmap
-            val product = Product(productName, productPrice, personImage)
+            val productDescription = productDescriptionET.text.toString()
+            val personImage = photoUri.toString()
+            val product = Product(productName, productPrice, productDescription, personImage)
             products.add(product)
 
-            val listAdapter = ListAdapter(this@Cart, products)
+            listAdapter = ListAdapter(this@Cart, products)
             listViewLV.adapter = listAdapter
-            listAdapter.notifyDataSetChanged()
             productNameET.text.clear()
             productPriceET.text.clear()
+            productDescriptionET.text.clear()
             editImageIV.setImageResource(R.drawable.ic_add)
+            listAdapter?.notifyDataSetChanged()
+        }
+
+        listViewLV.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                product = listAdapter!!.getItem(position)
+                item = position
+                val dialog = MyAlertDialog()
+                val args = Bundle()
+                args.putSerializable("product", product)
+                dialog.arguments = args
+                dialog.show(supportFragmentManager, "custom")
         }
     }
 
@@ -81,13 +101,8 @@ class Cart : AppCompatActivity() {
         editImageIV = findViewById(R.id.editImageIV)
         when(requestCode) {
             GALLERY_REQUEST -> if (requestCode === RESULT_OK) {
-                val selectedImage: Uri? = data?.data
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-                editImageIV.setImageBitmap(bitmap)
+                photoUri = data?.data
+                editImageIV.setImageURI(photoUri)
             }
         }
     }
@@ -102,5 +117,16 @@ class Cart : AppCompatActivity() {
             R.id.menuExit -> finishAffinity()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun remove(product: Product) {
+        listAdapter?.remove(product)
+    }
+
+    override fun update(product: Product) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("product", product)
+        intent.putExtra("photo", photoUri)
+        startActivity(intent)
     }
 }

@@ -1,9 +1,10 @@
 package com.example.productmagazine
 
-import android.graphics.Bitmap
+import java.io.Serializable
 
 class Product (
     val productName: String,
     val productPrice: String,
-    val image: Bitmap?
-)
+    val productDescription: String,
+    val image: String?
+) : Serializable

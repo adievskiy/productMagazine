@@ -8,4 +8,7 @@
     <string name="titleMenuExit">Выход</string>
     <string name="textShopNameTV">Магазин продуктов Шестерочка</string>
     <string name="textStartBTN">Старт</string>
+    <string name="hintProductDescriptionET">Краткое описание</string>
+    <string name="hintProductDescriptionTV">Краткое описание</string>
+    <string name="textProductDescriptionTV">Краткое описание</string>
 </resources>

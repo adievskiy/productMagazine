@@ -49,6 +49,14 @@
                 android:textSize="16sp"
                 tools:ignore="Autofill,TextFields" />
 
+            <EditText
+                android:id="@+id/productDescriptionET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintProductDescriptionET"
+                android:textSize="16sp"
+                tools:ignore="Autofill,TextFields" />
+
         </LinearLayout>
 
     </LinearLayout>
