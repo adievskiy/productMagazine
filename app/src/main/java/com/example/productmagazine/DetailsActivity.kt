@@ -1,8 +1,5 @@
 package com.example.productmagazine
 
-import android.annotation.SuppressLint
-import android.app.Person
-import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,20 +11,12 @@ import androidx.core.view.WindowInsetsCompat
 
 class DetailsActivity : AppCompatActivity() {
 
-    private lateinit var imageViewDesIV: ImageView
+    private lateinit var fullImageViewIV: ImageView
 
-    private lateinit var productNameDesTV: TextView
-    private lateinit var productPriceDesTV: TextView
-    private lateinit var productDescriptionDesTV: TextView
+    private lateinit var fullNameTV: TextView
+    private lateinit var fullPriceTV: TextView
+    private lateinit var fullDescription: TextView
 
-    private var product: Product? = null
-    var photoUri: Uri? = null
-    private var products: ArrayList<Product>? = null
-    private var position: Int = -1
-    private var check = true
-
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,20 +27,18 @@ class DetailsActivity : AppCompatActivity() {
             insets
         }
 
-        imageViewDesIV = findViewById(R.id.imageViewDesIV)
+        fullImageViewIV = findViewById(R.id.fullImageViewIV)
 
-        productNameDesTV = findViewById(R.id.productNameDesTV)
-        productPriceDesTV = findViewById(R.id.productPriceDesTV)
-        productDescriptionDesTV = findViewById(R.id.productDescriptionDesTV)
+        fullNameTV = findViewById(R.id.fullNameTV)
+        fullPriceTV = findViewById(R.id.fullPriceTV)
+        fullDescription = findViewById(R.id.fullDescriptionTV)
 
-        intent.let {
-            product = it.getSerializableExtra("product") as Product
-            photoUri = it.getStringExtra("photo")?.toUri()
-        }
+        val product = intent.getSerializableExtra("product") as Product
+        val photoUri = intent.getStringExtra("uri")?.toUri()
+        fullImageViewIV.setImageURI(photoUri)
+        fullNameTV.text = product.productName
+        fullPriceTV.text = product.productPrice
+        fullDescription.text = product.productDescription
 
-        productNameDesTV.text = product?.productName
-        productPriceDesTV.text = product?.productPrice
-        productDescriptionDesTV.text = product?.productDescription
-        imageViewDesIV.setImageURI(photoUri)
     }
 }

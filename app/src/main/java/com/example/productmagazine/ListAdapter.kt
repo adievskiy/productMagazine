@@ -16,9 +16,9 @@ class ListAdapter(context: Context, productList: MutableList<Product>): ArrayAda
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
         }
-        val imageViewTV = view?.findViewById<ImageView>(R.id.imageViewDesIV)
-        val productNameTV = view?.findViewById<TextView>(R.id.productNameDesTV)
-        val productPriceTV = view?.findViewById<TextView>(R.id.productPriceDesTV)
+        val imageViewTV = view?.findViewById<ImageView>(R.id.detailImageViewIV)
+        val productNameTV = view?.findViewById<TextView>(R.id.detailNameTV)
+        val productPriceTV = view?.findViewById<TextView>(R.id.detailPriceTV)
 
         imageViewTV?.setImageURI(Uri.parse(product?.image))
         productNameTV?.text = product?.productName
