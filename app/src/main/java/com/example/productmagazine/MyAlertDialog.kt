@@ -28,7 +28,7 @@ class MyAlertDialog : DialogFragment() {
             .setPositiveButton("Удалить") { dialog, which ->
                 removable?.remove(product as Product)
             }
-            .setNeutralButton("Редактировать") { dialog, which ->
+            .setNeutralButton("Подробнее") { dialog, which ->
                 updatable?.update(product as Product)
             }
             .setNegativeButton("Отмена", null)

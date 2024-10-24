@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import de.hdodenhof.circleimageview.CircleImageView
 
 class Cart : AppCompatActivity(), Updatable, Removable {
 
@@ -26,8 +25,6 @@ class Cart : AppCompatActivity(), Updatable, Removable {
     private val products: MutableList<Product> = mutableListOf()
     private var listAdapter: ListAdapter? = null
     private var item: Int? = null
-    private var product: Product? = null
-    private var check = true
 
     private lateinit var toolbarCart: Toolbar
     private lateinit var editImageIV: ImageView

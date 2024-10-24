@@ -1,15 +1,20 @@
 package com.example.productmagazine
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class DetailsActivity : AppCompatActivity() {
+
+    private lateinit var toolbar: Toolbar
 
     private lateinit var fullImageViewIV: ImageView
 
@@ -27,6 +32,10 @@ class DetailsActivity : AppCompatActivity() {
             insets
         }
 
+        toolbar = findViewById(R.id.toolbarDetails)
+        setSupportActionBar(toolbar)
+        title = "Шестерочка"
+
         fullImageViewIV = findViewById(R.id.fullImageViewIV)
 
         fullNameTV = findViewById(R.id.fullNameTV)
@@ -40,5 +49,16 @@ class DetailsActivity : AppCompatActivity() {
         fullPriceTV.text = product.productPrice
         fullDescription.text = product.productDescription
 
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menuExit -> finishAffinity()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
