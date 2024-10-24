@@ -1,5 +1,6 @@
 package com.example.productmagazine
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -43,8 +44,7 @@ class DetailsActivity : AppCompatActivity() {
         fullDescription = findViewById(R.id.fullDescriptionTV)
 
         val product = intent.getSerializableExtra("product") as Product
-        val photoUri = intent.getStringExtra("uri")?.toUri()
-        fullImageViewIV.setImageURI(photoUri)
+        fullImageViewIV.setImageURI(Uri.parse(product.image))
         fullNameTV.text = product.productName
         fullPriceTV.text = product.productPrice
         fullDescription.text = product.productDescription
