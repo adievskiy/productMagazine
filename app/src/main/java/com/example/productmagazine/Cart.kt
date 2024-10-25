@@ -2,6 +2,7 @@ package com.example.productmagazine
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Person
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,14 +18,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import de.hdodenhof.circleimageview.CircleImageView
 
 class Cart : AppCompatActivity(), Updatable, Removable {
 
     private val GALLERY_REQUEST = 302
     private var photoUri: Uri? = null
-    private val products: MutableList<Product> = mutableListOf()
+    private var products: MutableList<Product> = mutableListOf()
     private var listAdapter: ListAdapter? = null
     private var item: Int? = null
+    private var product: Product? = null
+    private var check = true
 
     private lateinit var toolbarCart: Toolbar
     private lateinit var editImageIV: ImageView
@@ -128,7 +132,20 @@ class Cart : AppCompatActivity(), Updatable, Removable {
     override fun update(product: Product) {
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra("product", product)
-        intent.putExtra("uri", photoUri)
+        intent.putExtra("products", this.products as ArrayList<Product>)
+        intent.putExtra("item", item)
+        intent.putExtra("check", check)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        check = intent.extras?.getBoolean("newCheck") ?: true
+        if (!check) {
+            products = intent.getSerializableExtra("list") as MutableList<Product>
+            listAdapter = ListAdapter(this, products)
+            check = true
+        }
+        listViewLV.adapter = listAdapter
     }
 }

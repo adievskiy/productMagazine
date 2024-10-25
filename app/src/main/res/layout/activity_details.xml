@@ -64,4 +64,13 @@
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/saveDetailsBTN"
+        android:layout_margin="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textSaveDetailsBTN"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>

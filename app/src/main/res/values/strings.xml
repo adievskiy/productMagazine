@@ -11,4 +11,5 @@
     <string name="hintProductDescriptionET">Краткое описание</string>
     <string name="hintProductDescriptionTV">Краткое описание</string>
     <string name="textProductDescriptionTV">Краткое описание</string>
+    <string name="textSaveDetailsBTN">Сохранить</string>
 </resources>
